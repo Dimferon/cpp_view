@@ -41,6 +41,35 @@ void Print_Single_List(Single_List* Head) {
 	else cout << "\n";
 }
 
+/*вставка элемента с заданным номером в однонаправленный список*/
+Single_List* Insert_Item_Single_List(Single_List* Head,
+	int DataItem, int Number = 1) {
+	Number--;
+	Single_List* NewItem = new(Single_List);
+	NewItem->Data = DataItem;
+	NewItem->Next = NULL;
+	if (Head == NULL) {//список пуст
+		Head = NewItem;//создаем первый элемент списка
+	}
+	else
+	{//список не пуст
+		Single_List* Current = Head;
+		for (int i = 1; i < Number && Current->Next != NULL; i++)
+			Current = Current->Next;
+		if (Number == 0) {
+			//вставляем новый элемент на первое место
+			NewItem->Next = Head;
+			Head = NewItem;
+		}
+		else {//вставляем новый элемент на непервое место
+			if (Current->Next != NULL)
+				NewItem->Next = Current->Next;
+			Current->Next = NewItem;
+		}
+	}
+	return Head;
+}
+
 
 
 int main()
