@@ -56,6 +56,7 @@ Single_List* Insert_Item_Single_List(Single_List* Head,
 		Single_List* Current = Head;
 		for (int i = 1; i < Number && Current->Next != NULL; i++)
 			Current = Current->Next;
+
 		if (Number == 0) {
 			//вставляем новый элемент на первое место
 			NewItem->Next = Head;
@@ -70,18 +71,50 @@ Single_List* Insert_Item_Single_List(Single_List* Head,
 	return Head;
 }
 
+/*удаление элемента с заданным номером из однонаправленного списка*/
+Single_List* Delete_Item_Single_List(Single_List* Head,
+	int Number = 1)
+{
+	if (Number < 1)throw std::exception("Выход за границу списка");
+	Single_List* ptr;//вспомогательный указатель
+	Single_List* Current = Head;
+	for (int i = 1; i < Number && Current != NULL; i++)
+		Current = Current->Next;
+	if (Current != NULL) //проверка на корректность
+	{
+		if (Current == Head)//удаляем первый элемент
+		{
+			Head = Head->Next;
+			delete(Current);
+			Current = Head;
+		}
+		else //удаляем непервый элемент
+		{
+			ptr = Head;
+			while (ptr->Next != Current)
+				ptr = ptr->Next;
+			ptr->Next = Current->Next;
+			delete(Current);
+			Current = ptr;
+		}
+	}
+	return Head;
+}
+
 
 
 int main()
 {
 	setlocale(LC_ALL, "rus");
-	Head = new Single_List();
-	Head->Data = 0;
-	Make_Single_List(10, &Head->Next);
+	Make_Single_List(10, &Head);
+	cout << "1) Вывод списка:" << endl;
+	Print_Single_List(Head);
+
+	Delete_Item_Single_List(Head, 5);
 
 	Current = Head;
 	int i = 0;
-	cout << "Вывод списка:" << endl;
+	cout << "2) Вывод списка:" << endl;
 	Print_Single_List(Head);
 }
 
