@@ -71,6 +71,7 @@ Single_List* Insert_Item_Single_List(Single_List* Head,
 	return Head;
 }
 
+//TODO: Оптимизировать функцию
 /*удаление элемента с заданным номером из однонаправленного списка*/
 Single_List* Delete_Item_Single_List(Single_List* Head,
 	int Number = 1)
@@ -101,6 +102,18 @@ Single_List* Delete_Item_Single_List(Single_List* Head,
 	return Head;
 }
 
+//TODO: Дописать функцию так, чтобы она выводила номер искомого элемента
+//Поиск элемента в однонаправленном списке
+bool Find_Item_Single_List(Single_List* Head, int DataItem) {
+	Single_List* Current = Head; //вспомогательным указатель
+	while (Current != NULL) {//пока не конец списка
+		if (DataItem == Current->Data) return true;
+		else Current = Current->Next;
+	}
+	return false;
+}
+
+
 
 
 int main()
@@ -109,12 +122,12 @@ int main()
 	Make_Single_List(10, &Head);
 	cout << "1) Вывод списка:" << endl;
 	Print_Single_List(Head);
-
-	Delete_Item_Single_List(Head, 5);
-
+	int findI;
+	cout << "Введите искомый элемент:";
+	cin >> findI;
+	cout << "Значение [" << findI << "] =" << (Find_Item_Single_List(Head, findI)?"найдено": 
+		"не найдено") <<endl;
 	Current = Head;
 	int i = 0;
-	cout << "2) Вывод списка:" << endl;
-	Print_Single_List(Head);
 }
 
