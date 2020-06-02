@@ -125,10 +125,49 @@ void Delete_Single_List(Single_List* Head)
 	}
 }
 
+struct Stack
+{
+	Single_List* Top = NULL;
+};
+
+//добавление элемента в вершину стека
+void Push_Stack(int NewElem, Stack* Top_Stack) {
+	Top_Stack->Top = Insert_Item_Single_List(Top_Stack->Top, NewElem, 1);
+}
+
+//извлечение элемента из вершины стека
+int Pop_Stack(Stack* Top_Stack) {
+	int NewElem = NULL;
+	if (Top_Stack->Top != NULL) {
+		NewElem = Top_Stack->Top->Data;
+		Top_Stack->Top = Delete_Item_Single_List(Top_Stack->Top, 0);
+		//удаляем вершину
+	}
+	return NewElem;
+}
+
+
+//Заполнение стека
+void Make_Stack(int n, Stack* Top_Stack) {
+	if (n > 0) {
+		int tmp;//вспомогательная переменная
+		cout << "Введите значение ";
+		cin >> tmp; //вводим значение информационного поля
+		Push_Stack(tmp, Top_Stack);
+		Make_Stack(n - 1, Top_Stack);
+	}
+}
+//печать стека
+void Print_Stack(Stack* Top_Stack) {
+	Print_Single_List(Top_Stack->Top);
+}
+
 
 
 int main()
 {
+	Stack stack1;
+	Make_Stack(5, &stack1);
 	setlocale(LC_ALL, "rus");
 	Make_Single_List(10, &Head);
 	cout << "1) Вывод списка:";
